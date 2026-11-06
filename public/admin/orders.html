@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orders | Golden Fork Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+  <div class="admin-wrapper">
+    <div id="admin-sidebar-placeholder"></div>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>Orders</h1></div>
+      <div class="admin-content">
+        <div class="page-toolbar">
+          <div class="toolbar-left">
+            <div class="search-box"><i class="fas fa-search"></i><input class="form-control" id="order-search" placeholder="Search customer…" /></div>
+            <select class="form-control" id="status-filter" style="min-width:150px;">
+              <option value="">All Statuses</option>
+              <option>pending</option><option>confirmed</option><option>preparing</option><option>ready</option><option>delivered</option><option>cancelled</option>
+            </select>
+          </div>
+        </div>
+        <div class="admin-section">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Order</th><th>Customer</th><th>Phone</th><th>Items</th><th>Total</th><th>Payment</th><th>Date</th><th>Status</th></tr></thead>
+              <tbody id="orders-tbody"><tr><td colspan="8" style="text-align:center;padding:3rem;"><div class="spinner"></div></td></tr></tbody>
+            </table>
+          </div>
+          <div style="padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border-color);">
+            <span style="font-size:.85rem;color:var(--text-muted);" id="orders-pagination-info"></span>
+            <div style="display:flex;gap:.5rem;" id="orders-pagination"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div id="toast-container"></div>
+  <script src="/js/api.js"></script>
+  <script src="/js/admin/auth.js"></script>
+  <script src="/js/admin/orders.js"></script>
+</body>
+</html>

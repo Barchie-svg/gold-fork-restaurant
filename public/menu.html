@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Menu | The Golden Fork Restaurant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/navbar.css" />
+  <style>
+    body { padding-top: 70px; }
+    .menu-hero { padding: 4rem 0 3rem; text-align: center; border-bottom: 1px solid var(--border-color); background: linear-gradient(180deg, rgba(201,168,76,.07) 0%, transparent 100%); }
+    .menu-hero h1 { font-family: var(--font-heading); font-size: 2.8rem; color: var(--text-primary); }
+    .menu-hero p { color: var(--text-muted); margin-top: .5rem; }
+    .gold-line { width: 60px; height: 3px; background: var(--gold); margin: .75rem auto 0; border-radius: 2px; }
+    .menu-controls { padding: 2rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .cat-filters { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .cat-btn { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-secondary); padding: .45rem 1.1rem; border-radius: 999px; cursor: pointer; font-size: .88rem; transition: all .2s; }
+    .cat-btn:hover, .cat-btn.active { background: var(--gold); border-color: var(--gold); color: #000; font-weight: 600; }
+    .search-wrap { position: relative; }
+    .search-wrap i { position: absolute; left: .9rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+    .search-wrap input { padding-left: 2.5rem; min-width: 220px; }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.5rem; padding-bottom: 5rem; }
+    .m-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; transition: all .3s; }
+    .m-card:hover { border-color: rgba(201,168,76,.35); transform: translateY(-4px); box-shadow: var(--shadow-gold); }
+    .m-img { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; background: linear-gradient(135deg, #1f1f1f, #181818); position: relative; }
+    .m-badge { position: absolute; top: .75rem; left: .75rem; background: var(--gold); color: #000; font-size: .7rem; font-weight: 700; padding: .25rem .6rem; border-radius: 999px; text-transform: uppercase; letter-spacing: .05em; }
+    .m-unavailable { position: absolute; inset: 0; background: rgba(0,0,0,.7); display: flex; align-items: center; justify-content: center; font-size: .85rem; color: var(--text-muted); letter-spacing: .05em; text-transform: uppercase; }
+    .m-body { padding: 1.25rem; }
+    .m-cat { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--gold); margin-bottom: .3rem; }
+    .m-name { font-family: var(--font-heading); font-size: 1.1rem; color: var(--text-primary); margin-bottom: .35rem; }
+    .m-desc { font-size: .85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .m-footer { display: flex; align-items: center; justify-content: space-between; }
+    .m-price { font-size: 1.05rem; font-weight: 700; color: var(--gold); }
+    .float-cart { position: fixed; bottom: 2rem; right: 2rem; background: var(--gold); color: #000; border: none; border-radius: 999px; padding: .9rem 1.5rem; font-weight: 700; font-size: .95rem; cursor: pointer; display: none; align-items: center; gap: .6rem; box-shadow: 0 4px 20px rgba(201,168,76,.4); transition: all .2s; z-index: 500; }
+    .float-cart:hover { background: var(--gold-light); transform: scale(1.05); }
+    .no-results { text-align: center; padding: 4rem 1rem; color: var(--text-muted); grid-column: 1/-1; }
+    .no-results i { font-size: 3rem; margin-bottom: 1rem; opacity: .3; display: block; }
+  </style>
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+
+  <div class="menu-hero">
+    <div class="container">
+      <h1>Our Menu</h1>
+      <div class="gold-line"></div>
+      <p>Crafted with passion, served with love</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="menu-controls">
+      <div class="cat-filters" id="cat-filters">
+        <button class="cat-btn active" data-cat="">All</button>
+        <button class="cat-btn" data-cat="Starters">🥗 Starters</button>
+        <button class="cat-btn" data-cat="Mains">🍽️ Mains</button>
+        <button class="cat-btn" data-cat="Desserts">🍰 Desserts</button>
+        <button class="cat-btn" data-cat="Drinks">🥤 Drinks</button>
+        <button class="cat-btn" data-cat="Specials">⭐ Specials</button>
+      </div>
+      <div class="search-wrap">
+        <i class="fas fa-search"></i>
+        <input class="form-control" type="text" id="menu-search" placeholder="Search dishes…" />
+      </div>
+    </div>
+    <div class="menu-grid" id="menu-grid">
+      <div class="spinner-overlay" style="grid-column:1/-1;"><div class="spinner"></div></div>
+    </div>
+  </div>
+
+  <button class="float-cart" id="float-cart-btn" onclick="Cart.openSidebar()">
+    🛒 View Cart (<span id="float-cart-count">0</span>)
+  </button>
+
+  <div id="toast-container"></div>
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/navbar.js"></script>
+  <script src="/js/menu.js"></script>
+</body>
+</html>

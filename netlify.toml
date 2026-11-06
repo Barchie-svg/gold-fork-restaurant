@@ -1,0 +1,37 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+  command = "echo Build complete"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Redirect all /api/* calls to the serverless function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/api/:splat"
+  status = 200
+  force = true
+
+# Redirect uploads (note: use Cloudinary/external storage in production)
+[[redirects]]
+  from = "/uploads/*"
+  to = "/.netlify/functions/api/uploads/:splat"
+  status = 200
+
+# Fallback: serve index.html for all unmatched routes (SPA support)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = [
+    "models/**",
+    "controllers/**",
+    "routes/**",
+    "middleware/**",
+    "config/**",
+    "app.js"
+  ]

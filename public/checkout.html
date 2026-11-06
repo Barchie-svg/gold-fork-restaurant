@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout | The Golden Fork Restaurant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/navbar.css" />
+  <style>
+    body { padding-top: 70px; }
+    .checkout-wrap { max-width: 760px; margin: 3rem auto; padding: 0 1rem 5rem; }
+    .checkout-title { font-family: var(--font-heading); font-size: 2rem; color: var(--text-primary); margin-bottom: 2rem; text-align: center; }
+    /* Steps */
+    .steps { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: 3rem; }
+    .step { display: flex; flex-direction: column; align-items: center; gap: .4rem; flex: 1; position: relative; }
+    .step:not(:last-child)::after { content: ''; position: absolute; top: 20px; left: 60%; right: -40%; height: 2px; background: var(--border-color); }
+    .step.done:not(:last-child)::after { background: var(--gold); }
+    .step-num { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .9rem; color: var(--text-muted); background: var(--bg-card); z-index: 1; transition: all .3s; }
+    .step.active .step-num { border-color: var(--gold); color: var(--gold); }
+    .step.done .step-num { border-color: var(--gold); background: var(--gold); color: #000; }
+    .step-label { font-size: .75rem; color: var(--text-muted); white-space: nowrap; }
+    .step.active .step-label { color: var(--gold); }
+    /* Panels */
+    .checkout-panel { display: none; }
+    .checkout-panel.active { display: block; }
+    .panel-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2rem; }
+    /* Cart Table */
+    .cart-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+    .cart-table th { text-align: left; padding: .75rem .5rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); border-bottom: 1px solid var(--border-color); }
+    .cart-table td { padding: .9rem .5rem; border-bottom: 1px solid var(--border-color); vertical-align: middle; color: var(--text-secondary); }
+    .cart-table tr:last-child td { border-bottom: none; }
+    .cart-empty-msg { text-align: center; padding: 3rem; color: var(--text-muted); }
+    .order-total { display: flex; justify-content: space-between; padding: 1rem 0 0; font-size: 1.1rem; font-weight: 700; color: var(--gold); border-top: 1px solid var(--border-color); }
+    /* Payment Tabs */
+    .pay-tabs { display: flex; gap: .75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .pay-tab { flex: 1; min-width: 120px; padding: 1rem; border: 2px solid var(--border-color); border-radius: var(--radius-md); background: var(--bg-elevated); cursor: pointer; text-align: center; transition: all .2s; }
+    .pay-tab:hover { border-color: rgba(201,168,76,.4); }
+    .pay-tab.active { border-color: var(--gold); background: rgba(201,168,76,.08); }
+    .pay-tab-icon { font-size: 1.6rem; margin-bottom: .4rem; }
+    .pay-tab-label { font-size: .85rem; font-weight: 600; color: var(--text-secondary); }
+    .pay-tab.active .pay-tab-label { color: var(--gold); }
+    .pay-panel { display: none; }
+    .pay-panel.active { display: block; }
+    .pay-info { background: rgba(201,168,76,.08); border: 1px solid rgba(201,168,76,.2); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1rem; font-size: .9rem; color: var(--text-secondary); }
+    .pay-info strong { color: var(--gold); }
+    /* Confirmation */
+    .confirm-wrap { text-align: center; padding: 2rem 0; }
+    .confirm-icon { font-size: 4rem; margin-bottom: 1rem; }
+    .confirm-wrap h2 { font-family: var(--font-heading); font-size: 2rem; color: var(--text-primary); margin-bottom: .5rem; }
+    .confirm-wrap p { color: var(--text-muted); margin-bottom: 1.5rem; }
+    .order-num { display: inline-block; background: rgba(201,168,76,.1); border: 1px solid rgba(201,168,76,.3); color: var(--gold); padding: .5rem 1.5rem; border-radius: 999px; font-weight: 700; margin-bottom: 1.5rem; }
+  </style>
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <div class="checkout-wrap">
+    <h1 class="checkout-title">🛒 Checkout</h1>
+
+    <!-- Progress Steps -->
+    <div class="steps">
+      <div class="step active" id="step-1"><div class="step-num">1</div><div class="step-label">Review</div></div>
+      <div class="step" id="step-2"><div class="step-num">2</div><div class="step-label">Details</div></div>
+      <div class="step" id="step-3"><div class="step-num">3</div><div class="step-label">Payment</div></div>
+      <div class="step" id="step-4"><div class="step-num">4</div><div class="step-label">Done</div></div>
+    </div>
+
+    <!-- Panel 1: Review Cart -->
+    <div class="checkout-panel active panel-card" id="panel-1">
+      <h3 style="font-family:var(--font-heading);margin-bottom:1.5rem;color:var(--text-primary);">Your Order</h3>
+      <div id="cart-review-content"></div>
+      <div style="display:flex;justify-content:flex-end;margin-top:1.5rem;gap:1rem;flex-wrap:wrap;">
+        <a href="/menu.html" class="btn btn-outline">← Add More Items</a>
+        <button class="btn btn-primary" id="to-step2">Continue →</button>
+      </div>
+    </div>
+
+    <!-- Panel 2: Customer Details -->
+    <div class="checkout-panel panel-card" id="panel-2">
+      <h3 style="font-family:var(--font-heading);margin-bottom:1.5rem;color:var(--text-primary);">Your Details</h3>
+      <form id="details-form">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input class="form-control" id="cust-name" required placeholder="John Doe" />
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="form-group">
+            <label class="form-label">Email *</label>
+            <input class="form-control" id="cust-email" type="email" required placeholder="john@example.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone *</label>
+            <input class="form-control" id="cust-phone" required placeholder="+254 7XX XXX XXX" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Delivery Address (optional)</label>
+          <input class="form-control" id="cust-address" placeholder="Leave blank for dine-in / pickup" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Special Notes</label>
+          <textarea class="form-control" id="cust-notes" rows="2" placeholder="Allergies, special requests…"></textarea>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:1rem;flex-wrap:wrap;gap:1rem;">
+          <button type="button" class="btn btn-outline" onclick="goStep(1)">← Back</button>
+          <button type="submit" class="btn btn-primary">Continue to Payment →</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Panel 3: Payment -->
+    <div class="checkout-panel panel-card" id="panel-3">
+      <h3 style="font-family:var(--font-heading);margin-bottom:1rem;color:var(--text-primary);">Payment</h3>
+      <div class="order-total" style="margin-bottom:1.5rem;" id="pay-total-display"></div>
+
+      <div class="pay-tabs">
+        <div class="pay-tab active" onclick="selectPayMethod('mpesa')">
+          <div class="pay-tab-icon">📱</div><div class="pay-tab-label">M-Pesa</div>
+        </div>
+        <div class="pay-tab" onclick="selectPayMethod('stripe')">
+          <div class="pay-tab-icon">💳</div><div class="pay-tab-label">Card</div>
+        </div>
+        <div class="pay-tab" onclick="selectPayMethod('cash')">
+          <div class="pay-tab-icon">💵</div><div class="pay-tab-label">Cash</div>
+        </div>
+      </div>
+
+      <!-- M-Pesa -->
+      <div class="pay-panel active" id="pay-mpesa">
+        <div class="pay-info">
+          <strong>M-Pesa STK Push</strong><br>
+          An M-Pesa payment prompt will be sent to your phone. Enter your PIN to confirm.
+        </div>
+        <div class="form-group">
+          <label class="form-label">M-Pesa Phone Number</label>
+          <input class="form-control" id="mpesa-phone" placeholder="e.g. 0712 345 678" />
+        </div>
+        <button class="btn btn-primary w-full" id="pay-mpesa-btn" onclick="payMpesa()">
+          <i class="fas fa-mobile-alt"></i> Send STK Push
+        </button>
+        <div id="mpesa-status" style="margin-top:1rem;display:none;" class="pay-info"></div>
+      </div>
+
+      <!-- Stripe/Card -->
+      <div class="pay-panel" id="pay-stripe">
+        <div class="pay-info"><strong>Card Payment (Stripe)</strong><br>Your card details are secured by Stripe. We never store your card information.</div>
+        <div class="form-group"><label class="form-label">Card Number</label><input class="form-control" placeholder="4242 4242 4242 4242" maxlength="19" /></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="form-group"><label class="form-label">Expiry</label><input class="form-control" placeholder="MM / YY" maxlength="7" /></div>
+          <div class="form-group"><label class="form-label">CVV</label><input class="form-control" placeholder="123" maxlength="4" type="password" /></div>
+        </div>
+        <button class="btn btn-primary w-full" onclick="payStripe()"><i class="fas fa-lock"></i> Pay Securely</button>
+      </div>
+
+      <!-- Cash -->
+      <div class="pay-panel" id="pay-cash">
+        <div class="pay-info"><strong>Cash on Delivery / At Restaurant</strong><br>Pay in cash when your order is ready or upon delivery.</div>
+        <button class="btn btn-primary w-full" onclick="placeOrder('cash')"><i class="fas fa-check"></i> Confirm Order</button>
+      </div>
+
+      <div style="margin-top:1rem;">
+        <button class="btn btn-outline" onclick="goStep(2)">← Back</button>
+      </div>
+    </div>
+
+    <!-- Panel 4: Confirmation -->
+    <div class="checkout-panel panel-card" id="panel-4">
+      <div class="confirm-wrap">
+        <div class="confirm-icon">🎉</div>
+        <h2>Order Placed!</h2>
+        <div class="order-num" id="confirm-order-id">Order #—</div>
+        <p>Thank you for your order! We'll prepare it with care and notify you when it's ready.</p>
+        <div id="confirm-summary" style="margin-bottom:1.5rem;text-align:left;"></div>
+        <a href="/" class="btn btn-primary">Back to Home</a>
+        <a href="/menu.html" class="btn btn-outline" style="margin-left:.75rem;">Order More</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/navbar.js"></script>
+  <script src="/js/checkout.js"></script>
+</body>
+</html>

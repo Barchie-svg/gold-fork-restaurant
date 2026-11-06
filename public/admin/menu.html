@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu Management | Golden Fork Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+  <div class="admin-wrapper">
+    <div id="admin-sidebar-placeholder"></div>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>Menu Management</h1></div>
+      <div class="admin-content">
+        <div class="page-toolbar">
+          <div class="toolbar-left">
+            <div class="search-box"><i class="fas fa-search"></i><input class="form-control" id="menu-search" placeholder="Search menu items…" /></div>
+            <select class="form-control" id="cat-filter" style="min-width:140px;">
+              <option value="">All Categories</option>
+              <option>Starters</option><option>Mains</option><option>Desserts</option><option>Drinks</option><option>Specials</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="openMenuModal()"><i class="fas fa-plus"></i> Add Item</button>
+        </div>
+        <div class="admin-section">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Item</th><th>Category</th><th>Price</th><th>Available</th><th>Featured</th><th>Actions</th></tr></thead>
+              <tbody id="menu-tbody"><tr><td colspan="6" style="text-align:center;padding:3rem;"><div class="spinner"></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="menu-modal" style="display:none;">
+    <div class="modal" style="max-width:580px;">
+      <div class="modal-header"><h3 id="modal-title">Add Menu Item</h3><button class="modal-close" onclick="closeMenuModal()"><i class="fas fa-times"></i></button></div>
+      <div class="modal-body">
+        <form id="menu-form" enctype="multipart/form-data">
+          <input type="hidden" id="item-id" />
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="form-group"><label class="form-label">Name *</label><input class="form-control" id="f-name" required placeholder="Item name" /></div>
+            <div class="form-group"><label class="form-label">Category *</label>
+              <select class="form-control" id="f-category" required>
+                <option value="">Select…</option><option>Starters</option><option>Mains</option><option>Desserts</option><option>Drinks</option><option>Specials</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" id="f-desc" rows="2" placeholder="Short description…"></textarea></div>
+          <div class="form-group"><label class="form-label">Price (KES) *</label><input class="form-control" id="f-price" type="number" min="0" step="1" required placeholder="e.g. 1200" /></div>
+          <div style="display:flex;gap:2rem;margin-bottom:1rem;">
+            <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;"><input type="checkbox" id="f-available" checked /> <span style="font-size:.9rem;color:var(--text-secondary);">Available</span></label>
+            <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;"><input type="checkbox" id="f-featured" /> <span style="font-size:.9rem;color:var(--text-secondary);">Featured</span></label>
+          </div>
+          <div class="form-group"><label class="form-label">Image</label><input class="form-control" id="f-image" type="file" accept="image/*" /></div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeMenuModal()">Cancel</button>
+        <button class="btn btn-primary" id="save-menu-btn" onclick="saveMenuItem()"><i class="fas fa-save"></i> Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="/js/api.js"></script>
+  <script src="/js/admin/auth.js"></script>
+  <script src="/js/admin/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | The Golden Fork Restaurant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/navbar.css" />
+  <style>
+    body { padding-top: 70px; }
+    .about-hero { padding: 5rem 0; text-align: center; background: linear-gradient(180deg, rgba(201,168,76,.07) 0%, transparent 100%); border-bottom: 1px solid var(--border-color); }
+    .about-hero h1 { font-family: var(--font-heading); font-size: clamp(2rem,5vw,3rem); color: var(--text-primary); }
+    .gold-line { width: 60px; height: 3px; background: var(--gold); margin: .75rem auto 0; border-radius: 2px; }
+    .section { padding: 5rem 0; }
+    .story-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .story-text h2 { font-family: var(--font-heading); font-size: 2rem; color: var(--text-primary); margin-bottom: 1rem; }
+    .story-text p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
+    .story-visual { background: linear-gradient(135deg, #1a1400, #1a1a00); border: 1px solid rgba(201,168,76,.2); border-radius: var(--radius-md); height: 350px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1rem; }
+    .story-visual .big-emoji { font-size: 5rem; }
+    .story-visual p { color: var(--gold); font-family: var(--font-heading); font-size: 1.2rem; text-align: center; }
+    .values-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 1.5rem; }
+    .value-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.75rem; text-align: center; transition: all .3s; }
+    .value-card:hover { border-color: rgba(201,168,76,.3); transform: translateY(-3px); }
+    .value-icon { font-size: 2.2rem; margin-bottom: .75rem; }
+    .value-card h3 { font-family: var(--font-heading); font-size: 1.1rem; color: var(--text-primary); margin-bottom: .5rem; }
+    .value-card p { color: var(--text-muted); font-size: .88rem; line-height: 1.6; }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 1.5rem; }
+    .team-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.75rem; text-align: center; transition: all .3s; }
+    .team-card:hover { border-color: rgba(201,168,76,.3); transform: translateY(-3px); }
+    .team-avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem; }
+    .team-card h4 { font-family: var(--font-heading); font-size: 1rem; color: var(--text-primary); margin-bottom: .3rem; }
+    .team-card p { color: var(--gold); font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; }
+    .team-card small { color: var(--text-muted); font-size: .82rem; }
+    .milestones { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 1.5rem; }
+    .milestone { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; text-align: center; }
+    .milestone-year { font-family: var(--font-heading); font-size: 1.8rem; color: var(--gold); font-weight: 700; }
+    .milestone-label { color: var(--text-muted); font-size: .88rem; margin-top: .3rem; }
+    @media (max-width: 768px) { .story-layout { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+
+  <section class="about-hero">
+    <div class="container">
+      <h1>About The Golden Fork</h1>
+      <div class="gold-line"></div>
+      <p style="color:var(--text-muted);margin-top:.75rem;">Our story, our passion, our people</p>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="section">
+    <div class="container">
+      <div class="story-layout">
+        <div class="story-text">
+          <h2>Our Story</h2>
+          <p>The Golden Fork Restaurant was founded in 2014 with a singular vision: to create a dining destination where exceptional cuisine meets warm Kenyan hospitality. What started as a small family restaurant in Karen has grown into one of Nairobi's most beloved fine dining establishments.</p>
+          <p>Our Executive Chef, trained in Paris and Cape Town, brings together the finest African ingredients with classical French techniques, resulting in dishes that surprise, delight, and linger in memory.</p>
+          <p>Every plate that leaves our kitchen carries our promise: fresh ingredients, crafted with passion, presented with pride — and served with the warmth that makes you feel at home.</p>
+          <div style="display:flex;gap:2rem;margin-top:1.5rem;">
+            <div><div style="font-family:var(--font-heading);font-size:2rem;color:var(--gold);font-weight:700;">10+</div><div style="color:var(--text-muted);font-size:.85rem;">Years of Excellence</div></div>
+            <div><div style="font-family:var(--font-heading);font-size:2rem;color:var(--gold);font-weight:700;">500+</div><div style="color:var(--text-muted);font-size:.85rem;">Menu Creations</div></div>
+            <div><div style="font-family:var(--font-heading);font-size:2rem;color:var(--gold);font-weight:700;">1,000+</div><div style="color:var(--text-muted);font-size:.85rem;">Happy Guests</div></div>
+          </div>
+        </div>
+        <div class="story-visual">
+          <div class="big-emoji">🍴</div>
+          <p>Est. 2014<br>Karen, Nairobi</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section" style="background:var(--bg-secondary);padding:4rem 0;">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:2.5rem;"><h2 style="font-family:var(--font-heading);font-size:2rem;color:var(--text-primary);">Our Values</h2><div class="gold-line"></div></div>
+      <div class="values-grid">
+        <div class="value-card"><div class="value-icon">🌿</div><h3>Fresh Ingredients</h3><p>We partner with local farmers and suppliers to source the freshest, highest-quality ingredients every single day.</p></div>
+        <div class="value-card"><div class="value-icon">❤️</div><h3>Passion for Food</h3><p>Cooking is not a job for us — it's a calling. Every dish is prepared with love, creativity, and meticulous attention to detail.</p></div>
+        <div class="value-card"><div class="value-icon">⭐</div><h3>Exceptional Service</h3><p>From reservation to departure, we ensure every guest feels valued, welcomed, and completely taken care of.</p></div>
+        <div class="value-card"><div class="value-icon">🌍</div><h3>Community First</h3><p>We believe in giving back — supporting local suppliers, employing Kenyan talent, and participating in community initiatives.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:2.5rem;"><h2 style="font-family:var(--font-heading);font-size:2rem;color:var(--text-primary);">Meet Our Team</h2><div class="gold-line"></div></div>
+      <div class="team-grid">
+        <div class="team-card"><div class="team-avatar">👨‍🍳</div><h4>Chef Marcus Odhiambo</h4><p>Executive Chef</p><small>15 years experience • Paris-trained</small></div>
+        <div class="team-card"><div class="team-avatar">👩‍🍳</div><h4>Chef Amina Mwangi</h4><p>Sous Chef</p><small>10 years experience • Pastry expert</small></div>
+        <div class="team-card"><div class="team-avatar">👨‍💼</div><h4>David Kariuki</h4><p>Restaurant Manager</p><small>8 years in hospitality management</small></div>
+        <div class="team-card"><div class="team-avatar">👩‍🍽️</div><h4>Grace Njeri</h4><p>Head of Service</p><small>Certified sommelier • 7 years</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Milestones -->
+  <section class="section" style="background:var(--bg-secondary);padding:4rem 0;">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:2.5rem;"><h2 style="font-family:var(--font-heading);font-size:2rem;color:var(--text-primary);">Our Journey</h2><div class="gold-line"></div></div>
+      <div class="milestones">
+        <div class="milestone"><div class="milestone-year">2014</div><div class="milestone-label">Founded in Karen, Nairobi</div></div>
+        <div class="milestone"><div class="milestone-year">2016</div><div class="milestone-label">Best New Restaurant Award</div></div>
+        <div class="milestone"><div class="milestone-year">2018</div><div class="milestone-label">Expanded to 120 seats</div></div>
+        <div class="milestone"><div class="milestone-year">2020</div><div class="milestone-label">Launched catering services</div></div>
+        <div class="milestone"><div class="milestone-year">2022</div><div class="milestone-label">Top 10 Nairobi Restaurants</div></div>
+        <div class="milestone"><div class="milestone-year">2024</div><div class="milestone-label">10 Years of Excellence 🎉</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div id="toast-container"></div>
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/navbar.js"></script>
+</body>
+</html>

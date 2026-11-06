@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reservations | Golden Fork Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+  <div class="admin-wrapper">
+    <div id="admin-sidebar-placeholder"></div>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>Reservations</h1></div>
+      <div class="admin-content">
+        <div class="page-toolbar">
+          <div class="toolbar-left">
+            <select class="form-control" id="res-status-filter" style="min-width:150px;">
+              <option value="">All Statuses</option><option>pending</option><option>confirmed</option><option>cancelled</option>
+            </select>
+            <input class="form-control" id="date-from" type="date" placeholder="From date" />
+            <input class="form-control" id="date-to" type="date" placeholder="To date" />
+            <button class="btn btn-outline" onclick="loadReservations()"><i class="fas fa-filter"></i> Filter</button>
+          </div>
+        </div>
+        <div class="admin-section">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Customer</th><th>Email</th><th>Phone</th><th>Date</th><th>Time</th><th>Guests</th><th>Notes</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="res-tbody"><tr><td colspan="9" style="text-align:center;padding:3rem;"><div class="spinner"></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div id="toast-container"></div>
+  <script src="/js/api.js"></script>
+  <script src="/js/admin/auth.js"></script>
+  <script src="/js/admin/reservations.js"></script>
+</body>
+</html>

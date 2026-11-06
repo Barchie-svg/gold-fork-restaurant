@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Golden Fork Restaurant — Fine Dining in Nairobi</title>
+  <meta name="description" content="The Golden Fork Restaurant — Where Every Meal Tells a Story. Fine dining, online ordering, table reservations, and events in Nairobi, Kenya." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <style>
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 50% 60%, rgba(201,168,76,0.12) 0%, transparent 65%),
+                  linear-gradient(160deg, #0a0a0a 0%, #111 50%, #0d0a05 100%);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(139,0,0,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 50%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 2rem;
+      animation: fadeUp 0.8s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 0.4rem 1.2rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-align: center;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── Features ── */
+    .features { padding: 5rem 0; background: var(--bg-secondary); }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .feature-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+    .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .feature-card h3 { font-family: var(--font-heading); font-size: 1.2rem; color: var(--text-primary); margin-bottom: 0.6rem; }
+    .feature-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+    /* ── Section Headers ── */
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-header h2 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4vw, 2.5rem); color: var(--text-primary); margin-bottom: 0.6rem; }
+    .section-header p { color: var(--text-muted); max-width: 500px; margin: 0 auto; }
+    .gold-line { width: 60px; height: 3px; background: var(--gold); margin: 0.75rem auto 0; border-radius: 2px; }
+
+    /* ── Menu Teaser ── */
+    .menu-teaser { padding: 5rem 0; }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+    .menu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .menu-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); box-shadow: var(--shadow-gold); }
+    .menu-card-img {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      background: linear-gradient(135deg, var(--bg-elevated), #1f1f1f);
+    }
+    .menu-card-body { padding: 1.25rem; }
+    .menu-card-category { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); margin-bottom: 0.4rem; }
+    .menu-card-name { font-family: var(--font-heading); font-size: 1.1rem; color: var(--text-primary); margin-bottom: 0.4rem; }
+    .menu-card-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .menu-card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .menu-price { font-size: 1rem; font-weight: 700; color: var(--gold); }
+
+    /* ── Stats Banner ── */
+    .stats-banner {
+      padding: 3rem 0;
+      background: linear-gradient(135deg, #1a1400, #1a1a00, #1a1000);
+      border-top: 1px solid rgba(201,168,76,0.2);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .stats-row { display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-num { font-family: var(--font-heading); font-size: 2.5rem; color: var(--gold); font-weight: 700; display: block; }
+    .stat-lbl { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ── Reviews Teaser ── */
+    .reviews-teaser { padding: 5rem 0; background: var(--bg-secondary); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .review-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+    .review-card-top { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .review-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: #000; font-size: 0.85rem; flex-shrink: 0;
+    }
+    .review-name { font-weight: 600; color: var(--text-primary); font-size: 0.95rem; }
+    .review-date { font-size: 0.75rem; color: var(--text-muted); }
+    .review-comment { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; font-style: italic; }
+
+    /* ── Events CTA ── */
+    .events-cta {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, rgba(139,0,0,0.15), rgba(139,0,0,0.05));
+      border-top: 1px solid rgba(139,0,0,0.2);
+      border-bottom: 1px solid rgba(139,0,0,0.2);
+      text-align: center;
+    }
+    .events-cta h2 { font-family: var(--font-heading); font-size: 2.2rem; color: var(--text-primary); margin-bottom: 0.75rem; }
+    .events-cta p { color: var(--text-muted); max-width: 500px; margin: 0 auto 2rem; }
+
+    /* ── Reservation CTA ── */
+    .reservation-cta {
+      padding: 5rem 0;
+      text-align: center;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 70%);
+    }
+    .reservation-cta h2 { font-family: var(--font-heading); font-size: 2.2rem; color: var(--text-primary); margin-bottom: 0.75rem; }
+    .reservation-cta p { color: var(--text-muted); max-width: 480px; margin: 0 auto 2rem; }
+  </style>
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+
+  <!-- ── HERO ─────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-eyebrow">✦ Fine Dining Experience ✦</span>
+      <h1>The <em>Golden Fork</em><br>Restaurant</h1>
+      <p>Where Every Meal Tells a Story. Exceptional cuisine crafted with passion, served in an atmosphere of refined elegance.</p>
+      <div class="hero-btns">
+        <a href="/menu.html" class="btn btn-primary">🍽️ Explore Our Menu</a>
+        <a href="/reservations.html" class="btn btn-outline">📅 Reserve a Table</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- ── FEATURES ──────────────────────────────── -->
+  <section class="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Why Dine With Us</h2>
+        <div class="gold-line"></div>
+        <p>An unparalleled experience from the moment you arrive</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🍽️</div>
+          <h3>Fine Dining Experience</h3>
+          <p>Immerse yourself in an atmosphere of elegance and sophistication designed for memorable occasions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌿</div>
+          <h3>Fresh Local Ingredients</h3>
+          <p>We source the finest seasonal produce from local farmers, ensuring every dish bursts with natural flavor.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">👨‍🍳</div>
+          <h3>Expert Master Chefs</h3>
+          <p>Our award-winning chefs bring over 20 years of culinary expertise to create extraordinary dishes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FEATURED MENU ─────────────────────────── -->
+  <section class="menu-teaser">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Signature Dishes</h2>
+        <div class="gold-line"></div>
+        <p>A selection of our most beloved creations</p>
+      </div>
+      <div class="menu-grid" id="featured-menu">
+        <!-- loaded by JS -->
+        <div class="spinner-overlay"><div class="spinner"></div></div>
+      </div>
+      <div style="text-align:center;margin-top:2.5rem;">
+        <a href="/menu.html" class="btn btn-outline">View Full Menu →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STATS BANNER ──────────────────────────── -->
+  <section class="stats-banner">
+    <div class="container">
+      <div class="stats-row">
+        <div class="stat-item"><span class="stat-num">500+</span><span class="stat-lbl">Dishes</span></div>
+        <div class="stat-item"><span class="stat-num">10</span><span class="stat-lbl">Years of Excellence</span></div>
+        <div class="stat-item"><span class="stat-num">1,000+</span><span class="stat-lbl">Happy Customers</span></div>
+        <div class="stat-item"><span class="stat-num">4.9★</span><span class="stat-lbl">Average Rating</span></div>
+        <div class="stat-item"><span class="stat-num">200+</span><span class="stat-lbl">Events Hosted</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REVIEWS TEASER ────────────────────────── -->
+  <section class="reviews-teaser">
+    <div class="container">
+      <div class="section-header">
+        <h2>What Our Guests Say</h2>
+        <div class="gold-line"></div>
+      </div>
+      <div class="reviews-grid" id="home-reviews">
+        <div class="spinner-overlay"><div class="spinner"></div></div>
+      </div>
+      <div style="text-align:center;margin-top:2rem;">
+        <a href="/reviews.html" class="btn btn-outline">Read All Reviews →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EVENTS CTA ────────────────────────────── -->
+  <section class="events-cta">
+    <div class="container">
+      <div class="feature-icon" style="font-size:3rem;margin-bottom:1rem;">🎊</div>
+      <h2>Host Your Special Event With Us</h2>
+      <p>From intimate birthdays to lavish weddings and corporate galas — we create unforgettable experiences for every occasion.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="/events.html" class="btn btn-primary">Book an Event</a>
+        <a href="/about.html" class="btn btn-outline">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RESERVATION CTA ───────────────────────── -->
+  <section class="reservation-cta">
+    <div class="container">
+      <div class="feature-icon" style="font-size:3rem;margin-bottom:1rem;">📅</div>
+      <h2>Ready for a Memorable Dining Experience?</h2>
+      <p>Secure your table today and let us craft an unforgettable evening for you and your guests.</p>
+      <a href="/reservations.html" class="btn btn-primary" style="font-size:1rem;padding:.85rem 2.5rem;">Reserve Your Table</a>
+    </div>
+  </section>
+
+  <div id="toast-container"></div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/navbar.js"></script>
+  <script src="/js/home.js"></script>
+</body>
+</html>

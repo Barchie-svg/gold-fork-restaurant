@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Table Reservations | The Golden Fork Restaurant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/navbar.css" />
+  <style>
+    body { padding-top: 70px; }
+    .res-hero { padding: 4rem 0 3rem; text-align: center; border-bottom: 1px solid var(--border-color); background: linear-gradient(180deg, rgba(201,168,76,.07) 0%, transparent 100%); }
+    .res-hero h1 { font-family: var(--font-heading); font-size: 2.8rem; color: var(--text-primary); }
+    .res-hero p { color: var(--text-muted); margin-top: .5rem; }
+    .gold-line { width: 60px; height: 3px; background: var(--gold); margin: .75rem auto 0; border-radius: 2px; }
+    .res-layout { display: grid; grid-template-columns: 1fr 380px; gap: 2.5rem; max-width: 980px; margin: 3rem auto; padding: 0 1rem 5rem; align-items: start; }
+    .res-form-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2rem; }
+    .res-form-card h2 { font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-primary); margin-bottom: 1.5rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .res-info-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.75rem; }
+    .info-block { margin-bottom: 1.5rem; }
+    .info-block h4 { font-family: var(--font-heading); font-size: 1rem; color: var(--gold); margin-bottom: .75rem; }
+    .info-row { display: flex; justify-content: space-between; padding: .4rem 0; border-bottom: 1px solid var(--border-color); font-size: .88rem; }
+    .info-row:last-child { border-bottom: none; }
+    .info-row span:first-child { color: var(--text-muted); }
+    .info-row span:last-child { color: var(--text-secondary); }
+    .success-card { background: var(--bg-card); border: 1px solid rgba(34,197,94,.3); border-radius: var(--radius-md); padding: 2.5rem; text-align: center; display: none; }
+    .success-card .success-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .success-card h2 { font-family: var(--font-heading); font-size: 1.8rem; color: var(--text-primary); margin-bottom: .5rem; }
+    .success-card p { color: var(--text-muted); margin-bottom: 1.5rem; }
+    .booking-detail { background: var(--bg-elevated); border-radius: var(--radius-sm); padding: 1rem 1.25rem; margin: 1rem auto; max-width: 360px; text-align: left; }
+    .booking-detail div { display: flex; justify-content: space-between; padding: .4rem 0; font-size: .9rem; }
+    .booking-detail div span:first-child { color: var(--text-muted); }
+    .booking-detail div span:last-child { color: var(--text-primary); font-weight: 600; }
+    @media (max-width: 768px) { .res-layout { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <section class="res-hero">
+    <div class="container">
+      <h1>Reserve Your Table</h1>
+      <div class="gold-line"></div>
+      <p>Secure your spot for an unforgettable dining experience</p>
+    </div>
+  </section>
+
+  <div class="res-layout">
+    <!-- Form -->
+    <div>
+      <div class="res-form-card" id="res-form-card">
+        <h2>📅 Book a Table</h2>
+        <form id="reservation-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input class="form-control" id="res-name" required placeholder="Your name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone *</label>
+              <input class="form-control" id="res-phone" required placeholder="+254 7XX XXX XXX" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-control" id="res-email" type="email" placeholder="your@email.com" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Date *</label>
+              <input class="form-control" id="res-date" type="date" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Time *</label>
+              <select class="form-control" id="res-time" required>
+                <option value="">Select time…</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Number of Guests *</label>
+            <select class="form-control" id="res-guests" required>
+              <option value="">Select guests…</option>
+              ${Array.from({length:20},(_,i)=>`<option value="${i+1}">${i+1} ${i===0?'Guest':'Guests'}</option>`).join('')}
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Special Requests</label>
+            <textarea class="form-control" id="res-requests" rows="3" placeholder="Dietary requirements, special occasions, seating preferences…"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary w-full" id="res-submit">
+            <i class="fas fa-calendar-check"></i> Book Table
+          </button>
+        </form>
+      </div>
+      <div class="success-card" id="res-success">
+        <div class="success-icon">🎉</div>
+        <h2>Reservation Confirmed!</h2>
+        <p>We look forward to welcoming you. A confirmation will be sent to your email.</p>
+        <div class="booking-detail" id="booking-detail"></div>
+        <div style="margin-top:1.5rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <button onclick="resetForm()" class="btn btn-outline">Make Another Booking</button>
+          <a href="/" class="btn btn-primary">Back to Home</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="res-info-card">
+      <div class="info-block">
+        <h4>📍 Location</h4>
+        <p style="color:var(--text-muted);font-size:.9rem;line-height:1.6;">Karen Shopping Centre, Karen Road, Nairobi, Kenya</p>
+      </div>
+      <div class="info-block">
+        <h4>⏰ Opening Hours</h4>
+        <div class="info-row"><span>Mon – Fri</span><span>11:00 AM – 11:00 PM</span></div>
+        <div class="info-row"><span>Saturday</span><span>10:00 AM – 12:00 AM</span></div>
+        <div class="info-row"><span>Sunday</span><span>10:00 AM – 10:00 PM</span></div>
+      </div>
+      <div class="info-block">
+        <h4>ℹ️ Good to Know</h4>
+        <ul style="color:var(--text-muted);font-size:.88rem;line-height:1.8;padding-left:1.2rem;">
+          <li>Reservations held for 15 minutes</li>
+          <li>Large groups (10+) please call us</li>
+          <li>We accommodate dietary needs</li>
+          <li>Free parking available</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-family:var(--font-heading);font-size:1rem;color:var(--gold);margin-bottom:.75rem;">📞 Direct Booking</h4>
+        <p style="color:var(--text-muted);font-size:.9rem;">Prefer to call? <a href="tel:+254712345678" style="color:var(--gold);">+254 712 345 678</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/navbar.js"></script>
+  <script src="/js/reservations.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reviews | Golden Fork Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+  <div class="admin-wrapper">
+    <div id="admin-sidebar-placeholder"></div>
+    <main class="admin-main">
+      <div class="admin-topbar"><h1>Customer Reviews</h1></div>
+      <div class="admin-content">
+        <div class="page-toolbar">
+          <div class="toolbar-left">
+            <select class="form-control" id="rev-filter" style="min-width:160px;">
+              <option value="">All Reviews</option>
+              <option value="false">⏳ Pending Approval</option>
+              <option value="true">✅ Approved</option>
+            </select>
+          </div>
+          <div style="font-size:.88rem;color:var(--text-muted);" id="rev-counts"></div>
+        </div>
+        <div class="admin-section">
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Customer</th><th>Rating</th><th>Comment</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="reviews-tbody"><tr><td colspan="6" style="text-align:center;padding:3rem;"><div class="spinner"></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div id="toast-container"></div>
+  <script src="/js/api.js"></script>
+  <script src="/js/admin/auth.js"></script>
+  <script src="/js/admin/reviews.js"></script>
+</body>
+</html>

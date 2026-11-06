@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Reviews | The Golden Fork Restaurant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/navbar.css" />
+  <style>
+    body { padding-top: 70px; }
+    .rev-hero { padding: 4rem 0 3rem; text-align: center; background: linear-gradient(180deg, rgba(201,168,76,.07) 0%, transparent 100%); border-bottom: 1px solid var(--border-color); }
+    .rev-hero h1 { font-family: var(--font-heading); font-size: 2.8rem; color: var(--text-primary); }
+    .gold-line { width: 60px; height: 3px; background: var(--gold); margin: .75rem auto 0; border-radius: 2px; }
+    .rev-layout { max-width: 1100px; margin: 0 auto; padding: 3rem 1rem 5rem; }
+    .rev-summary { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2rem; margin-bottom: 3rem; display: grid; grid-template-columns: auto 1fr; gap: 2.5rem; align-items: center; }
+    .avg-score { text-align: center; padding-right: 2rem; border-right: 1px solid var(--border-color); }
+    .avg-num { font-family: var(--font-heading); font-size: 4rem; font-weight: 700; color: var(--gold); line-height: 1; }
+    .avg-stars { margin: .4rem 0; }
+    .avg-count { color: var(--text-muted); font-size: .88rem; }
+    .rating-bars { flex: 1; }
+    .bar-row { display: flex; align-items: center; gap: .75rem; margin-bottom: .4rem; }
+    .bar-label { width: 20px; font-size: .82rem; color: var(--text-muted); text-align: right; flex-shrink: 0; }
+    .bar-track { flex: 1; height: 8px; background: var(--border-color); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--gold); border-radius: 4px; transition: width .6s ease; }
+    .bar-count { width: 24px; font-size: .82rem; color: var(--text-muted); flex-shrink: 0; }
+    .rev-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+    .rev-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; }
+    .rev-card-top { display: flex; align-items: center; gap: .75rem; margin-bottom: .75rem; }
+    .rev-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #000; font-size: .85rem; flex-shrink: 0; }
+    .rev-name { font-weight: 600; color: var(--text-primary); font-size: .95rem; }
+    .rev-date { font-size: .75rem; color: var(--text-muted); }
+    .rev-comment { font-size: .9rem; color: var(--text-secondary); line-height: 1.6; font-style: italic; }
+    .leave-review { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2rem; }
+    .leave-review h3 { font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-primary); margin-bottom: 1.5rem; }
+    .star-picker { display: flex; gap: .3rem; margin-bottom: 1rem; }
+    .star-btn { background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--border-light); transition: color .15s, transform .15s; }
+    .star-btn.active, .star-btn.hovered { color: var(--gold); }
+    .star-btn:hover { transform: scale(1.15); }
+    @media (max-width: 600px) { .rev-summary { grid-template-columns: 1fr; } .avg-score { border-right: none; border-bottom: 1px solid var(--border-color); padding-right: 0; padding-bottom: 1.5rem; margin-bottom: 1.5rem; } }
+  </style>
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <section class="rev-hero"><div class="container"><h1>Customer Reviews</h1><div class="gold-line"></div><p style="color:var(--text-muted);margin-top:.5rem;">Hear what our guests have to say</p></div></section>
+
+  <div class="rev-layout">
+    <!-- Summary -->
+    <div class="rev-summary" id="rev-summary">
+      <div class="avg-score">
+        <div class="avg-num" id="avg-rating">—</div>
+        <div class="avg-stars" id="avg-stars"></div>
+        <div class="avg-count" id="rev-count">0 reviews</div>
+      </div>
+      <div class="rating-bars" id="rating-bars">
+        <div class="spinner-overlay"><div class="spinner spinner-sm"></div></div>
+      </div>
+    </div>
+
+    <!-- Reviews Grid -->
+    <div class="rev-grid" id="rev-grid">
+      <div class="spinner-overlay" style="grid-column:1/-1;"><div class="spinner"></div></div>
+    </div>
+
+    <!-- Leave a Review -->
+    <div class="leave-review">
+      <h3>✍️ Leave a Review</h3>
+      <form id="review-form">
+        <div class="form-group">
+          <label class="form-label">Your Name *</label>
+          <input class="form-control" id="rv-name" required placeholder="Your full name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Rating *</label>
+          <div class="star-picker" id="star-picker">
+            <button type="button" class="star-btn" data-val="1">★</button>
+            <button type="button" class="star-btn" data-val="2">★</button>
+            <button type="button" class="star-btn" data-val="3">★</button>
+            <button type="button" class="star-btn" data-val="4">★</button>
+            <button type="button" class="star-btn" data-val="5">★</button>
+          </div>
+          <input type="hidden" id="rv-rating" value="" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Review *</label>
+          <textarea class="form-control" id="rv-comment" rows="4" required placeholder="Tell us about your experience…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="rv-submit"><i class="fas fa-paper-plane"></i> Submit Review</button>
+      </form>
+      <div id="rv-success" style="display:none;text-align:center;padding:1.5rem;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:var(--radius-sm);margin-top:1rem;">
+        <div style="font-size:2rem;margin-bottom:.5rem;">✅</div>
+        <strong style="color:var(--text-primary);">Thank you for your review!</strong>
+        <p style="color:var(--text-muted);font-size:.9rem;margin-top:.3rem;">It will appear after our team approves it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/navbar.js"></script>
+  <script src="/js/reviews.js"></script>
+</body>
+</html>

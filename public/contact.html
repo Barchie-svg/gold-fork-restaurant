@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | The Golden Fork Restaurant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" /><link rel="stylesheet" href="/css/navbar.css" />
+  <style>
+    body { padding-top: 70px; }
+    .contact-hero { padding: 4rem 0 3rem; text-align: center; background: linear-gradient(180deg, rgba(201,168,76,.07) 0%, transparent 100%); border-bottom: 1px solid var(--border-color); }
+    .contact-hero h1 { font-family: var(--font-heading); font-size: 2.8rem; color: var(--text-primary); }
+    .gold-line { width: 60px; height: 3px; background: var(--gold); margin: .75rem auto 0; border-radius: 2px; }
+    .contact-info-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 1.5rem; padding: 3rem 0 2rem; }
+    .info-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.75rem; text-align: center; }
+    .info-card-icon { font-size: 2rem; margin-bottom: .75rem; }
+    .info-card h4 { font-family: var(--font-heading); font-size: 1rem; color: var(--gold); margin-bottom: .4rem; }
+    .info-card p { color: var(--text-muted); font-size: .9rem; line-height: 1.6; }
+    .info-card a { color: var(--gold); text-decoration: none; }
+    .contact-main { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; padding-bottom: 5rem; }
+    .hours-table { width: 100%; }
+    .hours-row { display: flex; justify-content: space-between; padding: .6rem 0; border-bottom: 1px solid var(--border-color); font-size: .9rem; }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row span:first-child { color: var(--text-muted); }
+    .hours-row span:last-child { color: var(--text-primary); font-weight: 500; }
+    .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .social-link { width: 42px; height: 42px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 1.1rem; text-decoration: none; transition: all .2s; }
+    .social-link:hover { border-color: var(--gold); color: var(--gold); }
+    .map-placeholder { height: 220px; background: var(--bg-elevated); border: 1px solid var(--border-color); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: .75rem; color: var(--text-muted); margin-top: 1.5rem; }
+    .map-placeholder i { font-size: 2.5rem; opacity: .4; }
+    .contact-form-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2rem; }
+    .contact-form-card h3 { font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-primary); margin-bottom: 1.5rem; }
+    @media (max-width: 768px) { .contact-main { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <section class="contact-hero"><div class="container"><h1>Contact Us</h1><div class="gold-line"></div><p style="color:var(--text-muted);margin-top:.5rem;">We'd love to hear from you</p></div></section>
+
+  <div class="container">
+    <div class="contact-info-row">
+      <div class="info-card"><div class="info-card-icon">📍</div><h4>Our Location</h4><p>Karen Shopping Centre<br>Karen Road, Nairobi<br>Kenya</p></div>
+      <div class="info-card"><div class="info-card-icon">📞</div><h4>Call Us</h4><p><a href="tel:+254712345678">+254 712 345 678</a><br><a href="tel:+254733456789">+254 733 456 789</a></p></div>
+      <div class="info-card"><div class="info-card-icon">📧</div><h4>Email Us</h4><p><a href="mailto:info@goldenfork.com">info@goldenfork.com</a><br><a href="mailto:events@goldenfork.com">events@goldenfork.com</a></p></div>
+      <div class="info-card"><div class="info-card-icon">⏰</div><h4>Hours</h4><p>Mon–Fri: 11AM–11PM<br>Sat: 10AM–12AM<br>Sun: 10AM–10PM</p></div>
+    </div>
+
+    <div class="contact-main">
+      <div>
+        <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:1.75rem;margin-bottom:1.5rem;">
+          <h3 style="font-family:var(--font-heading);font-size:1.3rem;color:var(--text-primary);margin-bottom:1.25rem;">⏰ Opening Hours</h3>
+          <div class="hours-table">
+            <div class="hours-row"><span>Monday</span><span>11:00 AM – 11:00 PM</span></div>
+            <div class="hours-row"><span>Tuesday</span><span>11:00 AM – 11:00 PM</span></div>
+            <div class="hours-row"><span>Wednesday</span><span>11:00 AM – 11:00 PM</span></div>
+            <div class="hours-row"><span>Thursday</span><span>11:00 AM – 11:00 PM</span></div>
+            <div class="hours-row"><span>Friday</span><span>11:00 AM – 11:00 PM</span></div>
+            <div class="hours-row"><span>Saturday</span><span>10:00 AM – 12:00 AM</span></div>
+            <div class="hours-row"><span>Sunday</span><span>10:00 AM – 10:00 PM</span></div>
+          </div>
+          <h4 style="color:var(--gold);margin:1.5rem 0 .75rem;font-size:.95rem;">Follow Us</h4>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="map-placeholder">
+          <i class="fas fa-map-marked-alt"></i>
+          <p>Karen, Nairobi, Kenya</p>
+          <small>Karen Shopping Centre, Karen Road</small>
+          <a href="https://maps.google.com/?q=Karen+Shopping+Centre+Nairobi" target="_blank" class="btn btn-outline" style="font-size:.82rem;padding:.4rem 1rem;margin-top:.25rem;">Open in Google Maps</a>
+        </div>
+      </div>
+
+      <div class="contact-form-card">
+        <h3>✉️ Send Us a Message</h3>
+        <form id="contact-form">
+          <div class="form-group"><label class="form-label">Your Name *</label><input class="form-control" id="ct-name" required placeholder="Full name" /></div>
+          <div class="form-group"><label class="form-label">Email *</label><input class="form-control" id="ct-email" type="email" required placeholder="your@email.com" /></div>
+          <div class="form-group"><label class="form-label">Subject *</label>
+            <select class="form-control" id="ct-subject" required>
+              <option value="">Select subject…</option>
+              <option>General Enquiry</option><option>Reservation Question</option>
+              <option>Event Inquiry</option><option>Feedback</option><option>Other</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">Message *</label><textarea class="form-control" id="ct-message" rows="5" required placeholder="How can we help you?"></textarea></div>
+          <button type="submit" class="btn btn-primary w-full" id="ct-submit"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="/js/api.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/navbar.js"></script>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('ct-submit');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending…';
+      setTimeout(() => {
+        showToast('Message sent! We\'ll get back to you within 24 hours.', 'success');
+        this.reset();
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+      }, 1200);
+    });
+  </script>
+</body>
+</html>

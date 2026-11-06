@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login | The Golden Fork</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    body { background: var(--bg-primary); display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .login-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2.5rem; width: 100%; max-width: 420px; }
+    .login-logo { text-align: center; margin-bottom: 2rem; }
+    .login-logo div { font-family: var(--font-heading); font-size: 1.5rem; color: var(--gold); }
+    .login-logo p { color: var(--text-muted); font-size: .88rem; margin-top: .4rem; }
+    .login-title { font-family: var(--font-heading); font-size: 1.4rem; color: var(--text-primary); margin-bottom: 1.5rem; text-align: center; }
+    .error-msg { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.3); border-radius: var(--radius-sm); padding: .75rem 1rem; color: #ef4444; font-size: .88rem; margin-bottom: 1rem; display: none; }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="login-logo">
+      <div>🍴 The Golden Fork</div>
+      <p>Restaurant Management System</p>
+    </div>
+    <h2 class="login-title">Admin Sign In</h2>
+    <div class="error-msg" id="error-msg"><i class="fas fa-exclamation-circle"></i> <span id="error-text"></span></div>
+    <form id="login-form">
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <div style="position:relative;">
+          <i class="fas fa-envelope" style="position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.9rem;"></i>
+          <input class="form-control" id="login-email" type="email" required placeholder="admin@goldenfork.com" style="padding-left:2.5rem;" value="admin@goldenfork.com" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div style="position:relative;">
+          <i class="fas fa-lock" style="position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.9rem;"></i>
+          <input class="form-control" id="login-password" type="password" required placeholder="Enter password" style="padding-left:2.5rem;" value="Admin@1234" />
+          <button type="button" onclick="togglePwd()" style="position:absolute;right:.9rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;" id="pwd-toggle"><i class="fas fa-eye"></i></button>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary w-full" id="login-btn" style="margin-top:.5rem;">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+    </form>
+    <div style="text-align:center;margin-top:1.5rem;"><a href="/" style="color:var(--text-muted);font-size:.85rem;text-decoration:none;">← Back to Restaurant Website</a></div>
+  </div>
+
+  <div id="toast-container"></div>
+  <script src="/js/api.js"></script>
+  <script>
+    // Redirect if already logged in
+    if (localStorage.getItem('gf_admin_token')) window.location.href = '/admin/dashboard.html';
+
+    function togglePwd() {
+      const input = document.getElementById('login-password');
+      const icon = document.querySelector('#pwd-toggle i');
+      input.type = input.type === 'password' ? 'text' : 'password';
+      icon.className = input.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+    }
+
+    document.getElementById('login-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('login-btn');
+      const errMsg = document.getElementById('error-msg');
+      const errText = document.getElementById('error-text');
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in…';
+      errMsg.style.display = 'none';
+
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      try {
+        const res = await api.auth.login(email, password);
+        localStorage.setItem('gf_admin_token', res.token);
+        localStorage.setItem('gf_admin_user', JSON.stringify(res.user));
+        showToast('Welcome back, ' + res.user.name + '!');
+        setTimeout(() => window.location.href = '/admin/dashboard.html', 800);
+      } catch (err) {
+        errText.textContent = err.message || 'Invalid email or password';
+        errMsg.style.display = 'block';
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+      }
+    });
+  </script>
+</body>
+</html>

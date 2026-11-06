@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Golden Fork Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="admin-wrapper">
+    <div id="admin-sidebar-placeholder"></div>
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <h1>Dashboard</h1>
+        <div class="admin-topbar-actions">
+          <span style="font-size:.85rem;color:var(--text-muted);" id="topbar-date"></span>
+        </div>
+      </div>
+      <div class="admin-content">
+        <!-- Stats -->
+        <div class="stats-grid" id="stats-grid">
+          <div class="stat-card"><div class="stat-icon gold"><i class="fas fa-receipt"></i></div><div class="stat-info"><div class="stat-label">Total Orders</div><div class="stat-value" id="st-total-orders">—</div></div></div>
+          <div class="stat-card"><div class="stat-icon green"><i class="fas fa-coins"></i></div><div class="stat-info"><div class="stat-label">Today's Revenue</div><div class="stat-value" id="st-today-rev">—</div><div class="stat-sub">KES</div></div></div>
+          <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-calendar-check"></i></div><div class="stat-info"><div class="stat-label">Pending Reservations</div><div class="stat-value" id="st-pend-res">—</div></div></div>
+          <div class="stat-card"><div class="stat-icon purple"><i class="fas fa-glass-cheers"></i></div><div class="stat-info"><div class="stat-label">New Event Requests</div><div class="stat-value" id="st-events">—</div></div></div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+          <div class="chart-card"><h3>Orders by Status</h3><canvas id="statusChart" height="200"></canvas></div>
+          <div class="chart-card"><h3>Revenue Overview</h3><canvas id="revenueChart" height="200"></canvas></div>
+        </div>
+
+        <!-- Recent Orders -->
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <h3>Recent Orders</h3>
+            <a href="/admin/orders.html" class="btn btn-outline" style="font-size:.8rem;padding:.35rem .9rem;">View All</a>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th><th>Date</th></tr></thead>
+              <tbody id="recent-orders-tbody"><tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--text-muted);"><div class="spinner-overlay"><div class="spinner spinner-sm"></div></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Recent Reservations -->
+        <div class="admin-section">
+          <div class="admin-section-header">
+            <h3>Recent Reservations</h3>
+            <a href="/admin/reservations.html" class="btn btn-outline" style="font-size:.8rem;padding:.35rem .9rem;">View All</a>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Customer</th><th>Date</th><th>Time</th><th>Guests</th><th>Status</th></tr></thead>
+              <tbody id="recent-res-tbody"><tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--text-muted);"><div class="spinner-overlay"><div class="spinner spinner-sm"></div></div></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div id="toast-container"></div>
+  <script src="/js/api.js"></script>
+  <script src="/js/admin/auth.js"></script>
+  <script src="/js/admin/dashboard.js"></script>
+</body>
+</html>
