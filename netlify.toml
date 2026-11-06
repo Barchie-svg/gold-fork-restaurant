@@ -6,27 +6,22 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Redirect all /api/* calls to the serverless function
+# Redirect /api/* to the serverless Express function
+# event.path keeps the original /api/... path so Express routes match correctly
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/api/api/:splat"
+  to = "/.netlify/functions/api"
   status = 200
   force = true
 
-# Redirect uploads (note: use Cloudinary/external storage in production)
-[[redirects]]
-  from = "/uploads/*"
-  to = "/.netlify/functions/api/uploads/:splat"
-  status = 200
-
-# Fallback: serve index.html for all unmatched routes (SPA support)
+# Fallback SPA route — must be last
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
 [functions]
-  node_bundler = "esbuild"
+  node_bundler = "nft"
   included_files = [
     "models/**",
     "controllers/**",
