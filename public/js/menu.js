@@ -35,8 +35,10 @@ async function loadMenu() {
 function renderMenu() {
   const query = (document.getElementById('menu-search').value || '').toLowerCase();
   const filtered = allItems.filter(item => {
+    // treat missing/undefined available as true (available by default)
+    const isAvailable = item.available !== false;
     const matchCat = !activeCategory || item.category === activeCategory;
-    const matchSearch = !query || item.name.toLowerCase().includes(query) || item.description.toLowerCase().includes(query);
+    const matchSearch = !query || item.name.toLowerCase().includes(query) || (item.description || '').toLowerCase().includes(query);
     return matchCat && matchSearch;
   });
 
@@ -46,12 +48,14 @@ function renderMenu() {
     return;
   }
 
-  grid.innerHTML = filtered.map(item => `
+  grid.innerHTML = filtered.map(item => {
+    const isAvailable = item.available !== false;
+    return `
     <div class="m-card">
       <div class="m-img">
         ${item.image ? `<img src="/${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;">` : getCategoryEmoji(item.category)}
         ${item.featured ? '<span class="m-badge">★ Featured</span>' : ''}
-        ${!item.available ? '<div class="m-unavailable">Unavailable</div>' : ''}
+        ${!isAvailable ? '<div class="m-unavailable">Unavailable</div>' : ''}
       </div>
       <div class="m-body">
         <div class="m-cat">${item.category}</div>
@@ -61,13 +65,13 @@ function renderMenu() {
           <span class="m-price">${formatKES(item.price)}</span>
           <button class="btn btn-primary" style="font-size:.82rem;padding:.45rem 1rem;"
             onclick="addItem(${JSON.stringify(item).replace(/"/g,'&quot;')})"
-            ${!item.available ? 'disabled style="opacity:.5;cursor:not-allowed;"' : ''}>
+            ${!isAvailable ? 'disabled style="opacity:.5;cursor:not-allowed;"' : ''}>
             🛒 Add
           </button>
         </div>
       </div>
     </div>
-  `).join('');
+  `}).join('');
 
   updateFloatCart();
 }
